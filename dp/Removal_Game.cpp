@@ -6,10 +6,16 @@ int main() {
   int n;
   cin >> n;
   vector<int> x(n);
-  long long sum = 0;
+  vector<long long> sum (n+1);
   for (int&v : x) {
     cin >> v;
-    sum += v;
+    
+  }
+  long long c = 0;
+  for(int i=0;i<n;i++){
+    c+=x[i];
+    sum[i+1]=c;
+
   }
 
   vector<vector<long long> > dp(n,vector<long long>(n));
@@ -18,10 +24,10 @@ int main() {
       if (l == r) {
 	dp[l][r] = x[l];
       } else {
-	dp[l][r] = max(x[l]-dp[l+1][r],
-		       x[r]-dp[l][r-1]);
-      }
+                long long leftSum = sum[r + 1] - sum[l]; // sum of elements from l to r
+                dp[l][r] = max(leftSum - dp[l + 1][r], leftSum - dp[l][r - 1]);
+            }
     }
   }
-  cout << (sum+dp[0][n-1])/2 << endl;
+  cout << dp[0][n-1] << endl;
 }
