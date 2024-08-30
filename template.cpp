@@ -17,6 +17,6 @@ const int INF = INT_MAX;
 
 
 int main(){
-   
+    
     return 0;
 }
